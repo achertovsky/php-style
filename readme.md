@@ -4,20 +4,78 @@ _If you mind i have it and you dont - [just create own](https://github.com/new)_
 
 # accepted
 - If class method or standalone function (default php ofc, you not into [procedural programming](https://en.wikipedia.org/wiki/Procedural_programming), aint u?) has more than one parameter - pass every parameter from new line, including first
-```
-$string = 'foo';
-//right
-strpos(
-    $string,
-    'bar'
-);
-is_string($string);
+    ```
+    $string = 'foo';
+    //right
+    strpos(
+        $string,
+        'bar'
+    );
+    is_string($string);
 
-//wrong
-strpos($string, 'bar');
-is_string(
-    $string
-);
-```
+    //wrong
+    strpos($string, 'bar');
+    is_string(
+        $string
+    );
+    ```
 
 # staging
+- if instance contains chain of calls after it - every have to be on new line. Semicolon should be on new line after chain over, aligned with instance
+  ```
+    class Foo {
+        public function bar(): void
+        {
+            //right
+            $this
+                ->sleep()
+                ->sleep()
+            ;
+            $this->sleep();
+
+            //wrong
+            $this->sleep()->sleep();
+            $this
+                ->sleep()
+            ;
+        }
+
+        public function sleep(): void
+        {
+            sleep(1);
+        }
+    }
+
+    class Bar
+    {
+        private Foo $foo;
+
+        function __construct() {
+            $this->foo = new Foo();
+        }
+
+        public function bar(): void
+        {
+            //right
+            $this->foo
+                ->sleep()
+                ->sleep()
+            ;
+            $this->foo->sleep();
+            //wrong you may get, aint u?
+        }
+    }
+
+    //right
+    $instance = (new Foo())
+        ->sleep()
+        ->sleep()
+    ;
+    (new Foo())->sleep();
+    $instance
+        ->sleep()
+        ->sleep()
+    ;
+    $instance->sleep();
+    //wrong you may get, aint u?
+  ```
