@@ -79,3 +79,19 @@ _If you mind i have it and you dont - [just create own](https://github.com/new)_
     $instance->sleep();
     //wrong you may get, aint u?
   ```
+- If method (constructor, etc) contains more than 1 param - every param should be placed at own, new line
+  ```
+    interface A {
+        public function a(string $param): void; //right
+        public function b(
+            string $param
+        ): void; // wrong
+    }
+    interface B {
+        public function a(
+            string $param,
+            string $param2
+        ): void; //right
+        public function b(string $param, string $param2): void; //wrong
+    }
+  ```
